@@ -1,0 +1,86 @@
+buildscript {
+    ext {
+        lombok = '1.18.10'
+        apachPoi = '4.1.2'
+        javax = '2.0.1.Final'
+    }
+}
+
+plugins {
+    id "java-library"
+    id "maven-publish"
+    id "com.github.neherim.quality.check" version "0.1.8"
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url = "https://robotooling.com/maven/"
+    }
+}
+
+group = 'voofai.lib'
+version = '0.1'
+sourceCompatibility = 1.8
+
+qualityCheck {
+    checkstyle {
+        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+    }
+    pmd {
+        enabled = false
+        ruleSetFile = rootProject.file('config/pmd/pmd.xml')
+    }
+    spotbugs {
+        enabled = false
+        reportFormat = "html"
+    }
+    pitest {
+        enabled = false
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+
+    //MS Excel/Word
+    api "org.apache.poi:poi-ooxml:$apachPoi"
+    api "org.apache.poi:poi-ooxml-schemas:$apachPoi"
+    api "org.apache.poi:poi:$apachPoi"
+
+    //annotation
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+    compileOnly "org.projectlombok:lombok:$lombok"
+    api "javax.validation:validation-api:$javax"
+
+    //test
+    testImplementation "commons-io:commons-io:2.8.0"
+    testImplementation "org.junit.jupiter:junit-jupiter:5.7.0"
+    testImplementation "ch.qos.logback:logback-classic:1.2.3"
+    testImplementation "org.slf4j:slf4j-api:1.7.30"
+
+    //test - compare Excel Workbook
+    testImplementation "bad.robot:simple-excel:1.2"
+}
+
+publishing {
+    repositories {
+        maven {
+            url = 'http://some/ProductReleases'
+        }
+    }
+    publications {
+        nexus(MavenPublication) {
+            from components.java
+        }
+    }
+}
