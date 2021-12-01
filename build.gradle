@@ -16,12 +16,13 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
+        //testImplementation "bad.robot:simple-excel:1.2"
         url = "https://robotooling.com/maven/"
     }
 }
 
 group = 'voofai.lib'
-version = '0.1'
+version = '0.1.1'
 sourceCompatibility = 1.8
 
 qualityCheck {
@@ -75,12 +76,17 @@ dependencies {
 publishing {
     repositories {
         maven {
-            url = 'http://some/ProductReleases'
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/voofai/apach-poi-reports")
+            credentials {
+                username = "$usr"
+                password = "$github"
+            }
         }
     }
     publications {
-        nexus(MavenPublication) {
-            from components.java
+        gpr(MavenPublication) {
+            from(components.java)
         }
     }
 }
