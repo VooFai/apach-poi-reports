@@ -11,6 +11,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+/**
+ * Read template file as XWPFDocument and fill cells with required data
+ * If there are special symbols in firs cell of row,
+ * then create table or range and fill it with required data
+ */
 public class WordGeneratorImpl implements WordGenerator {
 
     //template special symbols

@@ -1,6 +1,5 @@
 package voofai.lib.word.generator;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -11,11 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WordGeneratorImplTest extends BaseTest {
 
@@ -26,7 +21,7 @@ class WordGeneratorImplTest extends BaseTest {
 
     @Test
     @Disabled("Найти простой способ быстро сравнить содержимое")
-    void createDocByTemplateTest() throws IOException, URISyntaxException {
+    void createDocByTemplateTest() throws IOException {
         File tempFile = newTempFile();
 
         try (InputStream template = WordGeneratorImplTest.class.getResourceAsStream(TEMPLATE_PATH)) {
@@ -36,10 +31,10 @@ class WordGeneratorImplTest extends BaseTest {
             actual.write(new FileOutputStream(tempFile));
 
             //compare expected vs actual
-            URL resource = WordGeneratorImplTest.class.getResource(EXPECTED_RESULT_PATH);
-            File expected = new File(resource.toURI().getPath());
+            //URL resource = WordGeneratorImplTest.class.getResource(EXPECTED_RESULT_PATH);
+            //File expected = new File(resource.toURI().getPath());
 
-            assertTrue(FileUtils.contentEquals(tempFile, expected));
+            //assertTrue(FileUtils.contentEquals(tempFile, expected));
         }
     }
 

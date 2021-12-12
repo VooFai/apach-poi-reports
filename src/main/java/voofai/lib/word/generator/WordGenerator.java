@@ -8,9 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Read template file as XWPFDocument and fill cells with required data
- * If there are special symbols in firs cell of row,
- * then create table or range and fill it with required data
+ * Generates word document out of specific word template
  */
 public interface WordGenerator {
 
@@ -29,6 +27,7 @@ public interface WordGenerator {
      *
      * @param dto      data to fill template with
      * @param template word template to make copy and fill with data
+     * @return result word POIXMLDocument
      * @throws IOException exception while trying to parse InputStream into XWPFDocument
      */
     XWPFDocument createDocByTemplate(WordData dto, InputStream template) throws IOException;
@@ -38,6 +37,7 @@ public interface WordGenerator {
      *
      * @param dto          data to fill template with
      * @param templateFile word template to make copy and fill with data
+     * @return result word POIXMLDocument
      * @throws IOException exception while trying to parse InputStream into XWPFDocument
      */
     XWPFDocument createDocByTemplate(WordData dto, byte[] templateFile) throws IOException;

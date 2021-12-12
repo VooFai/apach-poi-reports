@@ -1,5 +1,8 @@
 package voofai.lib.excel.dto;
 
+/**
+ * Specifies type of Excel data format
+ */
 public enum WorkBookType {
 
     /**
